@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flutter vs Native Android vs iOS — Which Mobile Development Path Should You Choose?</title>
+<meta name="description" content="A visual, no-nonsense comparison of Flutter, React Native, native Android and native iOS development, with live Pune training tracks and further reading.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1621;
+    --paper:#F6F4EE;
+    --panel:#141D2B;
+    --panel-line:#26334A;
+    --flutter:#3FC1D6;
+    --rn:#F2B441;
+    --android:#8BC24A;
+    --ios:#D7DAE0;
+    --muted:#9AA6B8;
+    --white:#F6F4EE;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--white);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+    font-size:17px;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    line-height:1.15;
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,22,33,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-line);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;max-width:1120px;margin:0 auto;
+  }
+  .brand{
+    display:flex;align-items:baseline;gap:8px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
+  }
+  .brand span{color:var(--flutter);}
+  nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  nav a{
+    text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500;
+    transition:color .2s ease;
+  }
+  nav a:hover{color:var(--white);}
+  #nav-toggle{display:none;}
+  .burger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:0;}
+  .burger span{width:22px;height:2px;background:var(--white);display:block;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:88px 0 70px;
+    border-bottom:1px solid var(--panel-line);
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(63,193,214,0.10), transparent),
+      radial-gradient(500px 260px at 5% 0%, rgba(139,194,74,0.08), transparent);
+  }
+  .tabbar{
+    display:inline-flex;border:1px solid var(--panel-line);border-radius:8px;
+    overflow:hidden;margin-bottom:36px;
+  }
+  .tabbar div{
+    padding:9px 16px;font-size:13px;font-family:'IBM Plex Mono',monospace;
+    color:var(--muted);border-right:1px solid var(--panel-line);
+    opacity:0;animation:fadein .5s ease forwards;
+  }
+  .tabbar div:last-child{border-right:none;}
+  .tabbar div:nth-child(1){animation-delay:.05s;color:var(--flutter);}
+  .tabbar div:nth-child(2){animation-delay:.18s;color:var(--rn);}
+  .tabbar div:nth-child(3){animation-delay:.31s;color:var(--android);}
+  .tabbar div:nth-child(4){animation-delay:.44s;color:var(--ios);}
+  @keyframes fadein{to{opacity:1;}}
+
+  .hero h1{
+    font-size:clamp(34px,5.4vw,58px);
+    max-width:14ch;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .flutter{color:var(--flutter);}
+  .hero h1 .android{color:var(--android);}
+  .hero h1 .ios{color:var(--ios);}
+  .cursor{
+    display:inline-block;width:3px;height:0.85em;background:var(--flutter);
+    margin-left:4px;vertical-align:-0.1em;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .hero p.lede{
+    max-width:56ch;color:var(--muted);font-size:18px;margin-top:22px;
+  }
+  .hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:12px 22px;border-radius:5px;
+    font-weight:600;font-size:15px;text-decoration:none;
+    border:1px solid transparent;transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--flutter);color:#08222A;}
+  .btn-primary:hover{background:#5DD0E3;}
+  .btn-ghost{border-color:var(--panel-line);color:var(--white);}
+  .btn-ghost:hover{border-color:var(--white);}
+
+  /* ---------- Phone showcase ---------- */
+  .phones-showcase{border-bottom:1px solid var(--panel-line);}
+  .phone-row{
+    display:flex;justify-content:center;align-items:flex-end;
+    gap:34px;flex-wrap:wrap;padding-top:20px;
+  }
+  .phone-card{display:flex;flex-direction:column;align-items:center;}
+  .phone-card .phone{
+    width:190px;height:392px;border-radius:30px;
+    background:#0B0E13;padding:9px;
+    box-shadow:0 24px 44px rgba(0,0,0,0.45);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    position:relative;
+  }
+  .phone-card:nth-child(1) .phone{transform:rotate(-7deg) translateY(18px);}
+  .phone-card:nth-child(3) .phone{transform:rotate(7deg) translateY(18px);}
+  .phone-card:hover .phone{transform:rotate(0deg) translateY(0);}
+  .phone .notch{
+    position:absolute;top:9px;left:50%;transform:translateX(-50%);
+    width:62px;height:16px;border-radius:10px;background:#0B0E13;
+    z-index:3;
+  }
+  .phone .screen{
+    width:100%;height:100%;border-radius:22px;overflow:hidden;
+    position:relative;display:flex;flex-direction:column;
+  }
+  .screen .status{
+    display:flex;justify-content:space-between;padding:16px 14px 0;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;
+  }
+  /* Flutter screen */
+  .screen-flutter{background:linear-gradient(160deg,#0F3A44,#0A2229);}
+  .screen-flutter .status{color:#8FE3F0;}
+  .screen-flutter .grid{
+    flex-grow:1;display:grid;grid-template-columns:1fr 1fr;
+    gap:9px;padding:16px;align-content:start;
+  }
+  .screen-flutter .tile{border-radius:12px;height:52px;}
+  .screen-flutter .tile:nth-child(1){background:#3FC1D6;}
+  .screen-flutter .tile:nth-child(2){background:#F2B441;}
+  .screen-flutter .tile:nth-child(3){background:#7CE0EC;height:38px;}
+  .screen-flutter .tile:nth-child(4){background:#1F6672;height:70px;}
+  .screen-flutter .tile:nth-child(5){background:#2C8C9C;height:38px;}
+  .screen-flutter .fab{
+    width:38px;height:38px;border-radius:50%;background:#3FC1D6;
+    position:absolute;bottom:16px;right:16px;
+    box-shadow:0 6px 14px rgba(63,193,214,0.5);
+  }
+  /* Android screen */
+  .screen-android{background:linear-gradient(160deg,#1F3313,#142108);}
+  .screen-android .status{color:#C8E6A0;}
+  .screen-android .appbar{
+    margin:14px 14px 0;height:30px;border-radius:8px;
+    background:rgba(139,194,74,0.18);
+  }
+  .screen-android .cardstack{padding:14px;display:flex;flex-direction:column;gap:8px;flex-grow:1;}
+  .screen-android .cardstack div{height:34px;border-radius:8px;background:rgba(139,194,74,0.28);}
+  .screen-android .cardstack div:nth-child(2){background:rgba(139,194,74,0.46);}
+  .screen-android .navbar{
+    height:44px;margin:0 10px 10px;border-radius:12px;
+    background:#0E1B06;display:flex;align-items:center;justify-content:space-around;
+  }
+  .screen-android .navbar span{width:9px;height:9px;border-radius:50%;background:#8BC24A;opacity:.5;}
+  .screen-android .navbar span.active{opacity:1;width:11px;height:11px;}
+  .screen-android .fab{
+    width:38px;height:38px;border-radius:12px;background:#8BC24A;
+    position:absolute;bottom:60px;right:16px;
+    box-shadow:0 6px 14px rgba(139,194,74,0.45);
+  }
+  /* iOS screen */
+  .screen-ios{background:linear-gradient(160deg,#E9EBEF,#D3D7DE);}
+  .screen-ios .status{color:#3A3F47;}
+  .screen-ios .icongrid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+    padding:22px 16px 0;
+  }
+  .screen-ios .icongrid div{
+    aspect-ratio:1;border-radius:11px;background:#fff;
+    box-shadow:0 2px 5px rgba(0,0,0,0.12);
+  }
+  .screen-ios .icongrid div:nth-child(1){background:#FF6B5B;}
+  .screen-ios .icongrid div:nth-child(2){background:#3FC1D6;}
+  .screen-ios .icongrid div:nth-child(4){background:#F2B441;}
+  .screen-ios .icongrid div:nth-child(7){background:#8BC24A;}
+  .screen-ios .dock{
+    margin:auto 10px 10px;height:52px;border-radius:16px;
+    background:rgba(255,255,255,0.6);
+    display:flex;align-items:center;justify-content:space-around;
+    backdrop-filter:blur(6px);
+  }
+  .screen-ios .dock div{width:30px;height:30px;border-radius:9px;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,0.15);}
+  .screen-ios .dock div:nth-child(1){background:#D7DAE0;}
+  .screen-ios .dock div:nth-child(2){background:#FF6B5B;}
+  .screen-ios .dock div:nth-child(3){background:#3FC1D6;}
+
+  .phone-label{margin-top:22px;text-align:center;}
+  .phone-label strong{
+    display:block;font-family:'Space Grotesk',sans-serif;font-size:17px;
+  }
+  .phone-label span{color:var(--muted);font-size:13.5px;}
+  .phone-card:nth-child(1) .phone-label strong{color:var(--flutter);}
+  .phone-card:nth-child(2) .phone-label strong{color:var(--android);}
+  .phone-card:nth-child(3) .phone-label strong{color:var(--ios);}
+
+  @media (max-width:640px){
+    .phone-card:nth-child(1) .phone,.phone-card:nth-child(3) .phone{transform:none;}
+    .phone-row{gap:20px;}
+    .phone-card .phone{width:150px;height:310px;}
+  }
+
+  /* ---------- Section shell ---------- */
+  section{padding:76px 0;}
+  .section-head{max-width:52ch;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px);}
+  .section-head p{color:var(--muted);margin-top:12px;font-size:16px;}
+  #compare{border-bottom:1px solid var(--panel-line);}
+
+  /* ---------- File panels (comparison) ---------- */
+  .panels{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+    padding:26px 22px;
+    display:flex;flex-direction:column;
+    min-height:100%;
+  }
+  .panel .filename{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);
+    margin-bottom:14px;
+  }
+  .panel h3{font-size:20px;margin-bottom:10px;}
+  .panel p{color:var(--muted);font-size:15px;flex-grow:1;}
+  .panel a.track-link{
+    margin-top:20px;font-size:14.5px;font-weight:600;color:var(--accent);
+    text-decoration:none;border-bottom:1px solid transparent;
+  }
+  .panel a.track-link:hover{border-bottom-color:var(--accent);}
+  .p-flutter{--accent:var(--flutter);}
+  .p-rn{--accent:var(--rn);}
+  .p-android{--accent:var(--android);}
+  .p-ios{--accent:var(--ios);}
+
+  /* ---------- Fit finder ---------- */
+  .fit-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
+  }
+  .fit-list{list-style:none;margin:0;padding:0;}
+  .fit-list li{
+    padding:18px 0;border-top:1px solid var(--panel-line);
+    display:flex;gap:16px;
+  }
+  .fit-list li:last-child{border-bottom:1px solid var(--panel-line);}
+  .fit-dot{
+    width:9px;height:9px;border-radius:50%;background:var(--flutter);
+    margin-top:8px;flex-shrink:0;
+  }
+  .fit-list li:nth-child(2) .fit-dot{background:var(--rn);}
+  .fit-list li:nth-child(3) .fit-dot{background:var(--android);}
+  .fit-list li:nth-child(4) .fit-dot{background:var(--ios);}
+  .fit-list strong{display:block;font-size:16px;margin-bottom:4px;}
+  .fit-list span{color:var(--muted);font-size:14.5px;}
+
+  .quote-block{
+    background:var(--panel);border:1px solid var(--panel-line);
+    border-radius:6px;padding:30px 28px;
+  }
+  .quote-block p{font-size:17px;color:var(--white);margin:0 0 16px;}
+  .quote-block p:last-child{margin-bottom:0;}
+  .quote-block .who{color:var(--muted);font-size:14px;}
+
+  /* ---------- Reading strip ---------- */
+  #reading{border-top:1px solid var(--panel-line);}
+  .reading-strip{
+    display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);
+    gap:16px;overflow-x:auto;padding-bottom:10px;
+    scroll-snap-type:x proximity;
+  }
+  .read-card{
+    scroll-snap-align:start;
+    background:var(--panel);border:1px solid var(--panel-line);
+    border-radius:5px;padding:20px;text-decoration:none;color:var(--white);
+    display:flex;flex-direction:column;justify-content:space-between;
+    min-height:150px;transition:border-color .2s ease;
+  }
+  .read-card:hover{border-color:var(--flutter);}
+  .read-card .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+  }
+  .read-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:600;
+    margin:10px 0 0;line-height:1.35;
+  }
+
+  /* ---------- CTA banner ---------- */
+  .cta{
+    border-top:1px solid var(--panel-line);
+    padding:80px 0;
+    text-align:left;
+  }
+  .cta-box{
+    background:linear-gradient(135deg, rgba(63,193,214,0.10), rgba(139,194,74,0.06));
+    border:1px solid var(--panel-line);border-radius:8px;
+    padding:44px 40px;display:flex;justify-content:space-between;
+    align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .cta-box h2{font-size:28px;max-width:20ch;}
+  .cta-box p{color:var(--muted);margin-top:8px;max-width:42ch;}
+
+  /* ---------- Footer / status bar ---------- */
+  footer{
+    border-top:1px solid var(--panel-line);
+    background:#0A1019;
+    padding:50px 0 0;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px;
+    padding-bottom:40px;
+  }
+  .footer-grid h5{
+    font-family:'Space Grotesk',sans-serif;font-size:14.5px;color:var(--white);
+    margin-bottom:14px;font-weight:600;
+  }
+  .footer-grid p{color:var(--muted);font-size:14.5px;max-width:32ch;}
+  .footer-grid ul{list-style:none;margin:0;padding:0;}
+  .footer-grid li{margin-bottom:9px;}
+  .footer-grid a{
+    color:var(--muted);text-decoration:none;font-size:14.5px;
+  }
+  .footer-grid a:hover{color:var(--white);}
+  .status-bar{
+    border-top:1px solid var(--panel-line);
+    padding:14px 0;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .panels{grid-template-columns:1fr 1fr;}
+    .fit-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    nav ul{
+      position:fixed;top:64px;left:0;right:0;
+      background:#0E1621;border-bottom:1px solid var(--panel-line);
+      flex-direction:column;gap:0;padding:8px 24px 18px;
+      display:none;
+    }
+    #nav-toggle:checked ~ nav ul{display:flex;}
+    nav li{padding:12px 0;border-bottom:1px solid var(--panel-line);}
+    .burger{display:flex;}
+    .panels{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .cta-box{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-row">
+    <div class="brand">justacademy <span>/mobile-paths</span></div>
+    <input type="checkbox" id="nav-toggle">
+    <nav>
+      <ul>
+        <li><a href="#compare">Compare</a></li>
+        <li><a href="#fit">Find your fit</a></li>
+        <li><a href="#reading">Reading</a></li>
+        <li><a href="#start">Start learning</a></li>
+      </ul>
+    </nav>
+    <label for="nav-toggle" class="burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tabbar mono">
+      <div>flutter.dart</div>
+      <div>App.js</div>
+      <div>MainActivity.kt</div>
+      <div>AppDelegate.swift</div>
+    </div>
+    <h1>
+      <span class="flutter">Flutter</span>, native <span class="android">Android</span>,
+      or native <span class="ios">iOS</span><span class="cursor"></span>
+    </h1>
+    <p class="lede">
+      Four different ways to build the same idea into a real, working app. This page lays out what each path actually feels like to learn, so you can pick one without guessing.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#compare">See the comparison</a>
+      <a class="btn btn-ghost" href="#start">Live Pune training tracks</a>
+    </div>
+  </div>
+</section>
+
+<section class="phones-showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Same app idea, three very different screens</h2>
+      <p>Before the technical breakdown, here is what the destination actually looks like. Hover a phone to bring it upright.</p>
+    </div>
+    <div class="phone-row">
+
+      <div class="phone-card">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen screen-flutter">
+            <div class="status"><span>9:41</span><span>flutter</span></div>
+            <div class="grid">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="fab"></div>
+          </div>
+        </div>
+        <div class="phone-label"><strong>Flutter</strong><span>one codebase, both stores</span></div>
+      </div>
+
+      <div class="phone-card">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen screen-android">
+            <div class="status"><span>9:41</span><span>kotlin</span></div>
+            <div class="appbar"></div>
+            <div class="cardstack">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div class="fab"></div>
+            <div class="navbar"><span></span><span class="active"></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div class="phone-label"><strong>Native Android</strong><span>built straight on the platform</span></div>
+      </div>
+
+      <div class="phone-card">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen screen-ios">
+            <div class="status"><span>9:41</span><span>swift</span></div>
+            <div class="icongrid">
+              <div></div><div></div><div></div><div></div>
+              <div></div><div></div><div></div><div></div>
+            </div>
+            <div class="dock"><div></div><div></div><div></div></div>
+          </div>
+        </div>
+        <div class="phone-label"><strong>Native iOS</strong><span>Apple's own house rules</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Four files, four philosophies</h2>
+      <p>Same goal, a working mobile app, four genuinely different ways of getting there. Here is what each one asks of you.</p>
+    </div>
+    <div class="panels">
+      <div class="panel p-flutter">
+        <div class="filename">flutter.dart</div>
+        <h3>Flutter</h3>
+        <p>One codebase compiled natively for Android, iOS and beyond. Dart is friendlier than most beginners expect, and the instant hot reload keeps early motivation intact.</p>
+        <a class="track-link" href="https://www.justacademy.co/course-detail/pune/flutter-training-in-pune" target="_blank" rel="noopener">Flutter training in Pune</a>
+      </div>
+      <div class="panel p-rn">
+        <div class="filename">App.js</div>
+        <h3>React Native</h3>
+        <p>Builds on JavaScript and React's component model, so anyone from a web background finds the transition into mobile noticeably shorter than starting from zero.</p>
+        <a class="track-link" href="https://www.justacademy.co/course-detail/pune/react-native-training-in-pune" target="_blank" rel="noopener">React Native training in Pune</a>
+      </div>
+      <div class="panel p-android">
+        <div class="filename">MainActivity.kt</div>
+        <h3>Native Android</h3>
+        <p>Direct, unfiltered access to the device. No waiting for a plugin to catch up. The right call when your app leans hard on hardware, services or system integration.</p>
+        <a class="track-link" href="https://www.justacademy.co/course-detail/pune/android-app-development-in-pune" target="_blank" rel="noopener">Android training in Pune</a>
+      </div>
+      <div class="panel p-ios">
+        <div class="filename">AppDelegate.swift</div>
+        <h3>Native iOS</h3>
+        <p>Swift, Xcode and Apple's exacting review process. A steeper first month, in exchange for the deepest, most polished command of the Apple ecosystem.</p>
+        <a class="track-link" href="https://www.justacademy.co/course-detail/pune/ios-training-in-pune" target="_blank" rel="noopener">iOS training in Pune</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fit">
+  <div class="wrap">
+    <div class="fit-grid">
+      <div>
+        <div class="section-head">
+          <h2>Which one actually fits you</h2>
+          <p>Less about which framework is "best," more about which one matches how you already think.</p>
+        </div>
+        <ul class="fit-list">
+          <li><div class="fit-dot"></div><div><strong>Want speed and both platforms at once</strong><span>Flutter gets a working prototype in front of you the fastest.</span></div></li>
+          <li><div class="fit-dot"></div><div><strong>Already comfortable with JavaScript</strong><span>React Native turns that existing knowledge into a mobile skill almost immediately.</span></div></li>
+          <li><div class="fit-dot"></div><div><strong>Care about hardware level control</strong><span>Native Android rewards patience with genuine depth and reliability.</span></div></li>
+          <li><div class="fit-dot"></div><div><strong>Obsessed with polish and detail</strong><span>Native iOS teaches discipline that shows up in every screen you ship.</span></div></li>
+        </ul>
+      </div>
+      <div class="quote-block">
+        <p>Most people don't quit because the concepts are too hard. They quit in week two over a broken emulator or a setup error nobody warned them about, the kind of thing a live mentor solves in minutes.</p>
+        <p>That gap is exactly why live, interactive, instructor led sessions exist. Not to replace the learning, just to remove the parts that were never really about learning in the first place.</p>
+        <p class="who">— on why guided training changes the timeline</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reading">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Worth reading next</h2>
+      <p>A few deeper dives if you want more than a comparison page can hold.</p>
+    </div>
+    <div class="reading-strip">
+      <a class="read-card" href="https://www.justacademy.co/blog-detail/flutter-vs-native-android-vs-ios-which-mobile-development-path-should-you-choose" target="_blank" rel="noopener">
+        <span class="tag">long read</span>
+        <h4>Flutter vs native Android vs iOS, the full breakdown</h4>
+      </a>
+      <a class="read-card" href="https://www.justacademy.co/blog-detail/flutter-developer-roadmap-2026-skills-projects-career-path" target="_blank" rel="noopener">
+        <span class="tag">roadmap</span>
+        <h4>Flutter developer roadmap 2026, skills and projects</h4>
+      </a>
+      <a class="read-card" href="https://www.justacademy.co/blog-detail/android-app-development-career-guide-how-to-become-an-android-developer" target="_blank" rel="noopener">
+        <span class="tag">career guide</span>
+        <h4>How to become an Android developer</h4>
+      </a>
+      <a class="read-card" href="https://www.justacademy.co/blog-detail/ios-developer-roadmap-2026-learn-swift-xcode-app-development" target="_blank" rel="noopener">
+        <span class="tag">roadmap</span>
+        <h4>iOS developer roadmap 2026, Swift and Xcode</h4>
+      </a>
+      <a class="read-card" href="https://www.justacademy.co/blog-detail/mobile-app-development-career-opportunities-in-india-2026" target="_blank" rel="noopener">
+        <span class="tag">careers</span>
+        <h4>Mobile app development careers in India, 2026</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="start">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h2>Pick a track, start building this week</h2>
+        <p>Live, mentor led sessions for Pune learners, taught the same way as our Mumbai classroom, just online.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="https://www.justacademy.co/course-detail/pune/flutter-training-in-pune" target="_blank" rel="noopener">Start with Flutter</a>
+        <a class="btn btn-ghost" href="https://www.justacademy.co/course-detail/pune/android-app-development-in-pune" target="_blank" rel="noopener">Start with Android</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h5>justacademy / mobile-paths</h5>
+        <p>A comparison built for Pune learners deciding between Flutter, React Native, native Android and native iOS, backed by live, instructor led training.</p>
+      </div>
+      <div>
+        <h5>Courses in Pune</h5>
+        <ul>
+          <li><a href="https://www.justacademy.co/course-detail/pune/flutter-training-in-pune" target="_blank" rel="noopener">Flutter training</a></li>
+          <li><a href="https://www.justacademy.co/course-detail/pune/react-native-training-in-pune" target="_blank" rel="noopener">React Native training</a></li>
+          <li><a href="https://www.justacademy.co/course-detail/pune/android-app-development-in-pune" target="_blank" rel="noopener">Android app development</a></li>
+          <li><a href="https://www.justacademy.co/course-detail/pune/ios-training-in-pune" target="_blank" rel="noopener">iOS training</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Further reading</h5>
+        <ul>
+          <li><a href="https://www.justacademy.co/blog-detail/flutter-vs-native-android-vs-ios-which-mobile-development-path-should-you-choose" target="_blank" rel="noopener">Full comparison blog</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/flutter-developer-roadmap-2026-skills-projects-career-path" target="_blank" rel="noopener">Flutter roadmap 2026</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/android-app-development-career-guide-how-to-become-an-android-developer" target="_blank" rel="noopener">Android career guide</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/ios-developer-roadmap-2026-learn-swift-xcode-app-development" target="_blank" rel="noopener">iOS roadmap 2026</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/mobile-app-development-career-opportunities-in-india-2026" target="_blank" rel="noopener">Mobile careers in India</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap status-bar" style="padding-left:0;padding-right:0;">
+      <span>UTF-8 · index.html</span>
+      <span>Built for Pune learners · JustAcademy</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
